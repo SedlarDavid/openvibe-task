@@ -24,6 +24,7 @@ mixin _$Message {
   String get message => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
+  @TimestampSerializer()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,7 @@ abstract class $MessageCopyWith<$Res> {
       String message,
       String nickname,
       String icon,
-      DateTime createdAt});
+      @TimestampSerializer() DateTime createdAt});
 }
 
 /// @nodoc
@@ -100,7 +101,7 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String message,
       String nickname,
       String icon,
-      DateTime createdAt});
+      @TimestampSerializer() DateTime createdAt});
 }
 
 /// @nodoc
@@ -153,7 +154,7 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
       required this.message,
       required this.nickname,
       required this.icon,
-      required this.createdAt});
+      @TimestampSerializer() required this.createdAt});
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageImplFromJson(json);
@@ -167,6 +168,7 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
   @override
   final String icon;
   @override
+  @TimestampSerializer()
   final DateTime createdAt;
 
   @override
@@ -221,11 +223,12 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
 
 abstract class _Message implements Message {
   const factory _Message(
-      {required final String id,
-      required final String message,
-      required final String nickname,
-      required final String icon,
-      required final DateTime createdAt}) = _$MessageImpl;
+          {required final String id,
+          required final String message,
+          required final String nickname,
+          required final String icon,
+          @TimestampSerializer() required final DateTime createdAt}) =
+      _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
@@ -238,6 +241,7 @@ abstract class _Message implements Message {
   @override
   String get icon;
   @override
+  @TimestampSerializer()
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)

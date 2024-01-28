@@ -12,7 +12,7 @@ _$MessageImpl _$$MessageImplFromJson(Map<String, dynamic> json) =>
       message: json['message'] as String,
       nickname: json['nickname'] as String,
       icon: json['icon'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: const TimestampSerializer().fromJson(json['createdAt'] as int),
     );
 
 Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
       'message': instance.message,
       'nickname': instance.nickname,
       'icon': instance.icon,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': const TimestampSerializer().toJson(instance.createdAt),
     };

@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
+import '../utils/timestamp_serializer.dart';
+
 part 'message.freezed.dart';
 
 part 'message.g.dart';
@@ -12,7 +14,7 @@ class Message with _$Message {
     required String message,
     required String nickname,
     required String icon,
-    required DateTime createdAt,
+    @TimestampSerializer() required DateTime createdAt,
   }) = _Message;
 
   factory Message.fromJson(Map<String, Object?> json) =>
