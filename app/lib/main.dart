@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'control_provider.dart';
 import 'exports/pages.dart';
+import 'route_provider.dart';
 
 const appName = "Example App";
 
@@ -28,7 +29,9 @@ class MyApp extends StatelessWidget {
       entries: {
         ...ControlProvider.entries,
       },
-      routes: const [],
+      routes: [
+        ...RouteProvider.routes,
+      ],
     );
 
     return ControlRoot(

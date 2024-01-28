@@ -41,9 +41,13 @@ class MessageService extends BaseControl {
     messages.add(dataMessage.message);
   }
 
+  //TODO sync with message repo, cache
+  void getById(String messageId) {}
+
   @override
   void dispose() {
     messages.dispose();
     super.dispose();
   }
+
 }
