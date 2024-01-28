@@ -5,12 +5,14 @@ class UITheme extends ControlTheme {
 
   final fontFamily = null;
 
-  TextTheme get fontAccent => _copyTextTheme(_mainTextTheme(), Colors.white);
+  static const _primaryColor = Color(0xFF5B61D9);
+
+  TextTheme get fontAccent => _copyTextTheme(_mainTextTheme(), _primaryColor);
 
   ThemeData get lightTheme => ThemeData(
       colorScheme: const ColorScheme(
-        primary: Color(0xFF5B61D9),
-        onPrimary: Color(0xFF5B61D9),
+        primary: _primaryColor,
+        onPrimary: _primaryColor,
         secondary: Color(0xff4D508C),
         onSecondary: Color(0xff4D508C),
         brightness: Brightness.light,

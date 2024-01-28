@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       ),
       states: [
         AppState.init.build((context) => AuthPage()),
-        AppState.main.build((context) => FeedPage()),
+        AppState.main.build((context) => MainPage()),
       ],
       app: (setup, home) => MaterialApp(
         key: setup.key,
