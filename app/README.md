@@ -3,5 +3,6 @@
 - [ ] feed page
 - [ ] message page
 - [ ] mock user page
+- [ ] package name change
 - [ ] loca?
 - [ ] loca?

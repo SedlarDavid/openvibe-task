@@ -1,3 +1,4 @@
+import 'package:app/widgets/loader.dart';
 import 'package:flutter_control/control.dart';
 
 import '../exports/controls.dart';
@@ -12,13 +13,8 @@ class AuthPage extends SingleControlWidget<AuthControl>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: theme.primaryColorDark,
-      body: Center(
-        child: CircularProgressIndicator(
-          color: theme.primaryColor,
-        ),
-      ),
+    return const Scaffold(
+      body: AppLoader(),
     );
   }
 }
