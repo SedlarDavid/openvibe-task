@@ -1,14 +1,21 @@
 import 'dart:convert';
 
 import 'package:app/entities/contract/message_contract_response.dart';
+import 'package:app/repositories/message_repository.dart';
 import 'package:app/utils/consts.dart';
 import 'package:control_core/core.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../entities/message.dart';
+import '../repositories/base_repository.dart';
 
 class MessageService extends BaseControl {
+  static int _id = 0;
+
+  MessageRepository get _messageRepository =>
+      Control.get<BaseRepository>()!.message;
+
   static const _messagesCount = 10;
 
   //TODO SystemService
@@ -30,24 +37,28 @@ class MessageService extends BaseControl {
     } catch (exception) {}
   }
 
+  //TODO api
   void _getLatest() {
     _channel.sink.add('["get", "$_clientId", $_messagesCount]');
   }
 
-  //TODO sync with message repo, cache
   void _onMessage(event) {
     var dataMessage = MessageContractResponse.fromSink(event);
     if (_clientId != dataMessage.id) return;
-    messages.add(dataMessage.message);
+    messages.add(
+      _messageRepository.set(
+        dataMessage.message.copyWith(
+          objectId: ++_id,
+        ),
+      ),
+    );
   }
 
-  //TODO sync with message repo, cache
-  void getById(String messageId) {}
+  Message get(String messageId) => _messageRepository.get(messageId);
 
   @override
   void dispose() {
     messages.dispose();
     super.dispose();
   }
-
 }

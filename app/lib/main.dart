@@ -4,11 +4,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'control_provider.dart';
 import 'exports/pages.dart';
+import 'repositories/base_repository.dart';
 import 'route_provider.dart';
 
-const appName = "Example App";
+const appName = "Viberrr";
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await BaseRepository().initialize();
   runApp(const MyApp());
 }
 

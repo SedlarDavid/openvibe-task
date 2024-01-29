@@ -20,6 +20,10 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Message {
+  @Id(assignable: true)
+  @JsonKey(name: '_non_')
+  int? get objectId => throw _privateConstructorUsedError;
+  @Index()
   String get id => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
@@ -38,7 +42,8 @@ abstract class $MessageCopyWith<$Res> {
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
   $Res call(
-      {String id,
+      {@Id(assignable: true) @JsonKey(name: '_non_') int? objectId,
+      @Index() String id,
       String message,
       String nickname,
       String icon,
@@ -58,6 +63,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? objectId = freezed,
     Object? id = null,
     Object? message = null,
     Object? nickname = null,
@@ -65,6 +71,10 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
+      objectId: freezed == objectId
+          ? _value.objectId
+          : objectId // ignore: cast_nullable_to_non_nullable
+              as int?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -97,7 +107,8 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {@Id(assignable: true) @JsonKey(name: '_non_') int? objectId,
+      @Index() String id,
       String message,
       String nickname,
       String icon,
@@ -115,6 +126,7 @@ class __$$MessageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? objectId = freezed,
     Object? id = null,
     Object? message = null,
     Object? nickname = null,
@@ -122,6 +134,10 @@ class __$$MessageImplCopyWithImpl<$Res>
     Object? createdAt = null,
   }) {
     return _then(_$MessageImpl(
+      objectId: freezed == objectId
+          ? _value.objectId
+          : objectId // ignore: cast_nullable_to_non_nullable
+              as int?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -148,9 +164,11 @@ class __$$MessageImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@Entity(realClass: Message)
 class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
   const _$MessageImpl(
-      {required this.id,
+      {@Id(assignable: true) @JsonKey(name: '_non_') this.objectId,
+      @Index() required this.id,
       required this.message,
       required this.nickname,
       required this.icon,
@@ -160,6 +178,11 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
       _$$MessageImplFromJson(json);
 
   @override
+  @Id(assignable: true)
+  @JsonKey(name: '_non_')
+  final int? objectId;
+  @override
+  @Index()
   final String id;
   @override
   final String message;
@@ -173,7 +196,7 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Message(id: $id, message: $message, nickname: $nickname, icon: $icon, createdAt: $createdAt)';
+    return 'Message(objectId: $objectId, id: $id, message: $message, nickname: $nickname, icon: $icon, createdAt: $createdAt)';
   }
 
   @override
@@ -181,6 +204,7 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Message'))
+      ..add(DiagnosticsProperty('objectId', objectId))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('nickname', nickname))
@@ -193,6 +217,8 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MessageImpl &&
+            (identical(other.objectId, objectId) ||
+                other.objectId == objectId) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.nickname, nickname) ||
@@ -204,8 +230,8 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, message, nickname, icon, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType, objectId, id, message, nickname, icon, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -223,7 +249,8 @@ class _$MessageImpl with DiagnosticableTreeMixin implements _Message {
 
 abstract class _Message implements Message {
   const factory _Message(
-          {required final String id,
+          {@Id(assignable: true) @JsonKey(name: '_non_') final int? objectId,
+          @Index() required final String id,
           required final String message,
           required final String nickname,
           required final String icon,
@@ -233,6 +260,11 @@ abstract class _Message implements Message {
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
   @override
+  @Id(assignable: true)
+  @JsonKey(name: '_non_')
+  int? get objectId;
+  @override
+  @Index()
   String get id;
   @override
   String get message;
