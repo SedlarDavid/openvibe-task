@@ -19,7 +19,13 @@ class FeedPage extends SingleControlWidget<FeedControl>
     return Scaffold(
       body: ListBuilder(
         control: control.messages,
-        noData: (context) => const AppLoader(),
+        noData: (context) => Center(
+          child: Text(
+            localize(
+              'no_messages',
+            ),
+          ),
+        ),
         builder: (BuildContext context, List<MessageModel> messages) =>
             ListView.builder(
           itemBuilder: (context, index) {

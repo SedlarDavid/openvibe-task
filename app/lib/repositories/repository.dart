@@ -25,4 +25,14 @@ abstract class Repository<T extends IdEntity> {
       return _cache[id] = data.first;
     }
   }
+
+  List<T> getAll() {
+    if (_cache.isNotEmpty) {
+      return _cache.values.toList(
+        growable: false,
+      );
+    } else {
+      return box.getAll();
+    }
+  }
 }

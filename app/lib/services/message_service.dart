@@ -20,7 +20,7 @@ class MessageService extends BaseControl {
 
   //TODO SystemService
   late final _clientId = const Uuid().v4();
-  late final WebSocketChannel _channel;
+  late final WebSocketChannel? _channel;
 
   final messages = ListControl<Message>();
 
@@ -32,14 +32,17 @@ class MessageService extends BaseControl {
     final uri = Uri.parse('ws://${Consts.baseUrl}');
     try {
       _channel = WebSocketChannel.connect(uri);
-      _channel.stream.listen(_onMessage);
+      _channel!.stream.listen(_onMessage);
       _getLatest();
     } catch (exception) {}
   }
 
   //TODO api
   void _getLatest() {
-    _channel.sink.add('["get", "$_clientId", $_messagesCount]');
+    messages.addAll(_messageRepository.getAll());
+    if (_channel != null) {
+      _channel.sink.add('["get", "$_clientId", $_messagesCount]');
+    }
   }
 
   void _onMessage(event) {
