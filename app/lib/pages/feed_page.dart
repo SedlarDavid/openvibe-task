@@ -18,7 +18,7 @@ class FeedPage extends SingleControlWidget<FeedControl>
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListBuilder(
-        control: control.messages,
+        control: control.messageModels,
         noData: (context) => Center(
           child: Text(
             localize(

@@ -20,7 +20,7 @@ class UserPage extends SingleControlWidget<UserControl> {
                   localize('reset_messages'),
                 ),
                 OutlinedButton(
-                  onPressed: control.onResetMessages,
+                  onPressed: () => control.onResetMessages(),
                   child: Text(
                     localize('reset_messages'),
                   ),
