@@ -24,6 +24,7 @@ class FeedPage extends SingleControlWidget<FeedControl>
             localize(
               'no_messages',
             ),
+            style: theme.fontAccent.labelLarge,
           ),
         ),
         builder: (BuildContext context, List<MessageModel> messages) =>

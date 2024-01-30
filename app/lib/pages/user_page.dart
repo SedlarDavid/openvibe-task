@@ -1,10 +1,35 @@
 import 'package:flutter_control/control.dart';
 
-class UserPage extends StatelessWidget {
-  const UserPage({super.key});
+import '../exports/controls.dart';
+
+class UserPage extends SingleControlWidget<UserControl> {
+  UserPage({super.key});
+
+  @override
+  UserControl initControl() => UserControl();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        children: [
+          Card(
+            child: Column(
+              children: [
+                Text(
+                  localize('reset_messages'),
+                ),
+                OutlinedButton(
+                  onPressed: control.onResetMessages,
+                  child: Text(
+                    localize('reset_messages'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

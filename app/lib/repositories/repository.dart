@@ -32,7 +32,15 @@ abstract class Repository<T extends IdEntity> {
         growable: false,
       );
     } else {
-      return box.getAll();
+      final all = box.getAll();
+      _cacheLocalStorage(all);
+      return all;
+    }
+  }
+
+  void _cacheLocalStorage(List<dynamic> all) {
+    for (final item in all) {
+      _cache[item.id] = item;
     }
   }
 }

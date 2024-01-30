@@ -9,9 +9,8 @@ import 'route_provider.dart';
 
 const appName = "Viberrr";
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await BaseRepository().initialize();
   runApp(const MyApp());
 }
 
@@ -29,8 +28,11 @@ class MyApp extends StatelessWidget {
           ]),
         ),
       ),
-      entries: {
-        ...ControlProvider.entries,
+      initAsync: () async => await Future.wait([
+        BaseRepository.initialize(),
+      ]),
+      initializers: {
+        ...ControlProvider.initializers,
       },
       routes: [
         ...RouteProvider.routes,

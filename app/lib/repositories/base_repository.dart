@@ -4,6 +4,14 @@ import '../objectbox.g.dart';
 import 'message_repository.dart';
 
 class BaseRepository {
+  static final BaseRepository _singleton = BaseRepository._internal();
+
+  factory BaseRepository() {
+    return _singleton;
+  }
+
+  BaseRepository._internal();
+
   static late final ObjectBox _objectBox;
 
   MessageRepository? _message;
@@ -14,7 +22,7 @@ class BaseRepository {
         _createBox<Message>(),
       );
 
-  Future<void> initialize() async {
+  static Future<void> initialize() async {
     _objectBox = await ObjectBox.create();
   }
 

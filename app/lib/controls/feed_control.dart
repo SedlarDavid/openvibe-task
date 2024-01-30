@@ -12,14 +12,16 @@ class FeedControl extends BaseControl {
   void onInit(Map args) {
     super.onInit(args);
 
-    _messageService.messages.subscribe((data) {
-      if (data != null) {
-        messages.setValue(
-          data.map(
-            (message) => MessageModel(message),
-          ),
-        );
-      }
-    },);
+    _messageService.messageStream.listen(
+      (data) {
+        if (data != null) {
+          messages.setValue(
+            data.map(
+              (message) => MessageModel(message),
+            ),
+          );
+        }
+      },
+    );
   }
 }

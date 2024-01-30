@@ -22,7 +22,9 @@ class MessageService extends BaseControl {
   late final _clientId = const Uuid().v4();
   late final WebSocketChannel? _channel;
 
-  final messages = ListControl<Message>();
+  final _messages = ListControl<Message>();
+
+  Stream<List<Message>?> get messageStream => _messages.stream;
 
   MessageService() {
     initialize();
@@ -39,7 +41,8 @@ class MessageService extends BaseControl {
 
   //TODO api
   void _getLatest() {
-    messages.addAll(_messageRepository.getAll());
+    _messages.addAll(_messageRepository.getAll());
+    _id = _messages.length;
     if (_channel != null) {
       _channel.sink.add('["get", "$_clientId", $_messagesCount]');
     }
@@ -47,21 +50,33 @@ class MessageService extends BaseControl {
 
   void _onMessage(event) {
     var dataMessage = MessageContractResponse.fromSink(event);
-    if (_clientId != dataMessage.id) return;
-    messages.add(
-      _messageRepository.set(
-        dataMessage.message.copyWith(
-          objectId: ++_id,
-        ),
+    if (_mockClientCheck(dataMessage)) return;
+    _messages.addAll(
+      [
+        _cacheAndStoreMessage(dataMessage),
+        ..._messages.value!,
+      ],
+    );
+  }
+
+  bool _mockClientCheck(MessageContractResponse dataMessage) =>
+      _clientId != dataMessage.id;
+
+  Message _cacheAndStoreMessage(MessageContractResponse dataMessage) {
+    return _messageRepository.set(
+      dataMessage.message.copyWith(
+        objectId: ++_id,
       ),
     );
   }
 
   Message get(String messageId) => _messageRepository.get(messageId);
 
+  void clear() => _messages.clear();
+
   @override
   void dispose() {
-    messages.dispose();
+    _messages.dispose();
     super.dispose();
   }
 }
