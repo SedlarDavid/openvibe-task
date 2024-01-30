@@ -17,25 +17,28 @@ class FeedPage extends SingleControlWidget<FeedControl>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListBuilder(
-        control: control.messageModels,
-        noData: (context) => Center(
-          child: Text(
-            localize(
-              'no_messages',
+      body: RefreshIndicator(
+        onRefresh: control.onRefresh,
+        child: ListBuilder(
+          control: control.messageModels,
+          noData: (context) => Center(
+            child: Text(
+              localize(
+                'no_messages',
+              ),
+              style: theme.fontAccent.labelLarge,
             ),
-            style: theme.fontAccent.labelLarge,
           ),
-        ),
-        builder: (BuildContext context, List<MessageModel> messages) =>
-            ListView.builder(
-          itemBuilder: (context, index) {
-            final message = messages[index];
-            return MessageTile(
-              control: message,
-            );
-          },
-          itemCount: messages.length,
+          builder: (BuildContext context, List<MessageModel> messages) =>
+              ListView.builder(
+            itemBuilder: (context, index) {
+              final message = messages[index];
+              return MessageTile(
+                control: message,
+              );
+            },
+            itemCount: messages.length,
+          ),
         ),
       ),
     );

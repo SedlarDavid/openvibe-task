@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:app/api/api.dart';
 import 'package:app/entities/contract/message_contract_response.dart';
 import 'package:app/repositories/message_repository.dart';
+import 'package:app/services/base_service.dart';
+import 'package:app/services/system_service.dart';
 import 'package:app/utils/consts.dart';
 import 'package:control_core/core.dart';
 import 'package:uuid/uuid.dart';
@@ -16,34 +19,23 @@ class MessageService extends BaseControl {
   MessageRepository get _messageRepository =>
       Control.get<BaseRepository>()!.message;
 
-  static const _messagesCount = 10;
+  SystemService get _systemService => Control.get<BaseService>()!.system;
 
-  //TODO SystemService
-  late final _clientId = const Uuid().v4();
-  late final WebSocketChannel? _channel;
+  Api get _api => Control.get<Api>()!;
 
   final messages = ListControl<Message>();
 
-  MessageService() {
-    initialize();
-  }
-
   void initialize() {
-    final uri = Uri.parse('ws://${Consts.baseUrl}');
-    try {
-      _channel = WebSocketChannel.connect(uri);
-      _channel!.stream.listen(_onMessage);
-      _getLatest();
-    } catch (exception) {}
+    _loadCached();
+    if (_api.initialized) {
+      _api.stream?.listen(_onMessage);
+      reload();
+    }
   }
 
-  //TODO api
-  void _getLatest() {
+  void _loadCached() {
     messages.setValue(_messageRepository.getAll());
     _id = messages.length;
-    if (_channel != null) {
-      _channel.sink.add('["get", "$_clientId", $_messagesCount]');
-    }
   }
 
   void _onMessage(event) {
@@ -57,8 +49,14 @@ class MessageService extends BaseControl {
     );
   }
 
+  @override
+  Future<void> reload() {
+    _api.reload();
+    return super.reload();
+  }
+
   bool _mockClientCheck(MessageContractResponse dataMessage) =>
-      _clientId != dataMessage.id;
+      _systemService.clientId != dataMessage.id;
 
   Message _cacheAndStoreMessage(MessageContractResponse dataMessage) {
     return _messageRepository.set(

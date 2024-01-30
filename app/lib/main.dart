@@ -1,3 +1,5 @@
+import 'package:app/api/api.dart';
+import 'package:app/services/base_service.dart';
 import 'package:app/theme.dart';
 import 'package:flutter_control/control.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,7 +31,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initAsync: () async => await Future.wait([
-        BaseRepository.initialize(),
+        Future(
+          () => Api().initialize(),
+        ),
+        //Prepare api, storage, then services
+        BaseRepository.initialize().then(
+          (value) => BaseService().initialize(),
+        ),
       ]),
       initializers: {
         ...ControlProvider.initializers,

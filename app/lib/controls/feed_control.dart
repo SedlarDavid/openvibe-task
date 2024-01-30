@@ -27,4 +27,6 @@ class FeedControl extends BaseControl {
       },
     );
   }
+
+  Future<void> onRefresh() => _messageService.reload();
 }
