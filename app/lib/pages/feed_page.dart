@@ -18,19 +18,26 @@ class FeedPage extends SingleControlWidget<FeedControl>
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: control.onRefresh,
+        onRefresh: () async => control.onRefresh(),
         child: ListBuilder(
           control: control.messageModels,
-          noData: (context) => Center(
-            child: Text(
-              localize(
-                'no_messages',
+          noData: (context) => SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: SizedBox(
+              height: _screenSize,
+              child: Center(
+                child: Text(
+                  localize(
+                    'no_messages',
+                  ),
+                  style: theme.fontAccent.labelLarge,
+                ),
               ),
-              style: theme.fontAccent.labelLarge,
             ),
           ),
           builder: (BuildContext context, List<MessageModel> messages) =>
               ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               final message = messages[index];
               return MessageTile(
@@ -42,5 +49,11 @@ class FeedPage extends SingleControlWidget<FeedControl>
         ),
       ),
     );
+  }
+
+  double get _screenSize {
+    return theme.device.height -
+        UITheme.headerSize -
+        (theme.data.navigationBarTheme.height ?? 80);
   }
 }

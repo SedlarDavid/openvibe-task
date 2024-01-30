@@ -7,7 +7,11 @@ class UITheme extends ControlTheme {
 
   static const _primaryColor = Color(0xFF5B61D9);
 
+  static const double headerSize = 150.0;
+
   TextTheme get fontAccent => _copyTextTheme(_mainTextTheme(), _primaryColor);
+
+  double borderRadiusSmall = 7.5;
 
   ThemeData get lightTheme => ThemeData(
       colorScheme: const ColorScheme(

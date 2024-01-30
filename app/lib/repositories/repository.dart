@@ -38,6 +38,11 @@ abstract class Repository<T extends IdEntity> {
     }
   }
 
+  void clear() {
+    _cache.clear();
+    box.removeAll();
+  }
+
   void _cacheLocalStorage(List<dynamic> all) {
     for (final item in all) {
       _cache[item.id] = item;

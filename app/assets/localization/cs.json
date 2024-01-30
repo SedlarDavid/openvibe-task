@@ -1,3 +1,7 @@
 {
-  "no_messages": "Žádné zprávy"
+  "no_messages": "Žádné zprávy",
+  "clear_storage": "Vyčistit úložiště",
+  "storage_cleared": "Úložiště vyčištěno",
+  "messages_count": "zpráv",
+  "messages": "Zprávy"
 }

@@ -1,10 +1,11 @@
+import 'package:app/services/base_service.dart';
 import 'package:app/services/message_service.dart';
 import 'package:control_core/core.dart';
 
 import '../entities/message.dart';
 
 class MessageControl extends BaseControl {
-  MessageService get _messageService => Control.get<MessageService>()!;
+  MessageService get _messageService => Control.get<BaseService>()!.message;
   late final String _messageId;
 
   final messageDetail = ActionControl.single<Message?>(null);

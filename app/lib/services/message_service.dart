@@ -68,7 +68,10 @@ class MessageService extends BaseControl {
 
   Message get(String messageId) => _messageRepository.get(messageId);
 
-  void clear() => messages.setValue(<Message>[]);
+  void clear() {
+    _messageRepository.clear();
+    messages.setValue(<Message>[]);
+  }
 
   @override
   void dispose() {

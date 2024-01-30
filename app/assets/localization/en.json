@@ -1,3 +1,7 @@
 {
-  "no_messages": "No messages"
+  "no_messages": "No messages",
+  "clear_storage": "Clear storage",
+  "storage_cleared": "Storage cleared",
+  "messages_count": "messages",
+  "messages": "Messages"
 }
