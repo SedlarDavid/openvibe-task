@@ -21,30 +21,39 @@ class FeedPage extends SingleControlWidget<FeedControl>
         onRefresh: () async => control.onRefresh(),
         child: ListBuilder(
           control: control.messageModels,
-          noData: (context) => SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: SizedBox(
-              height: _screenSize,
-              child: Center(
-                child: Text(
-                  localize(
-                    'no_messages',
-                  ),
-                  style: theme.fontAccent.labelLarge,
-                ),
-              ),
-            ),
-          ),
+          noData: (context) => _NoData(),
           builder: (BuildContext context, List<MessageModel> messages) =>
               ListView.builder(
+            padding: EdgeInsets.only(top: theme.padding),
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               final message = messages[index];
-              return MessageTile(
-                control: message,
-              );
+              return MessageTile(control: message);
             },
             itemCount: messages.length,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NoData extends ControlWidget
+    with ThemeProvider<UITheme>, LocalinoProvider {
+  _NoData({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: SizedBox(
+        height: _screenSize,
+        child: Center(
+          child: Text(
+            localize(
+              'no_messages',
+            ),
+            style: theme.fontAccent.labelLarge,
           ),
         ),
       ),

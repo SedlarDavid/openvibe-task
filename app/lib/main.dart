@@ -8,6 +8,7 @@ import 'control_provider.dart';
 import 'exports/pages.dart';
 import 'repositories/base_repository.dart';
 import 'route_provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 const appName = "Viberrr";
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         BaseRepository.initialize().then(
           (value) => BaseService().initialize(),
         ),
+        initializeDateFormatting('cs', null)
       ]),
       initializers: {
         ...ControlProvider.initializers,

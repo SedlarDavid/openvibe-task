@@ -47,6 +47,7 @@ class MessageService extends BaseControl {
         ...messages.value!,
       ],
     );
+    messages.sort((a,b) => b.createdAt.compareTo(a.createdAt));
   }
 
   @override
