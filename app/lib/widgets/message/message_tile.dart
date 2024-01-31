@@ -1,4 +1,5 @@
 import 'package:app/exports/pages.dart';
+import 'package:app/exports/widgets.dart';
 import 'package:app/models/message_model.dart';
 import 'package:app/theme.dart';
 import 'package:app/utils/utils.dart';
@@ -51,31 +52,8 @@ class MessageTile extends ControllableWidget<MessageModel>
                     left: theme.paddingHalf,
                     top: theme.paddingHalf,
                     right: theme.paddingHalf),
-                child: Row(
-                  children: [
-                    Text(
-                      control.value!.icon,
-                      style: theme.fontAccent.bodyMedium?.copyWith(fontSize: 20),
-                    ),
-                    SizedBox(
-                      width: theme.padding,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          control.value!.nickname,
-                          style: theme.fontAccent.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          Utils.formatMessageDate(control.value!.createdAt),
-                          style: theme.fontAccent.bodyMedium,
-                        ),
-                      ],
-                    ),
-                  ],
+                child: MessageHeader(
+                  message: control.value!,
                 ),
               ),
               SizedBox(

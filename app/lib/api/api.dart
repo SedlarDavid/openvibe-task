@@ -18,7 +18,6 @@ class Api extends BaseControl {
 
   SystemService get _system => Control.get<BaseService>()!.system;
 
-  static const _messagesCount = 10;
 
   late final WebSocketChannel? _channel;
 
@@ -33,13 +32,13 @@ class Api extends BaseControl {
       _channel = WebSocketChannel.connect(uri);
       initialized = true;
     } catch (exception) {
-      //TODO retry policy
+      // Retry policy, network listener...
     }
   }
 
   void _getLatest() {
     if (_channel != null) {
-      _channel.sink.add('["get", "${_system.clientId}", $_messagesCount]');
+      _channel.sink.add('["get", "${_system.clientId}", ${_system.messagesCount}]');
     }
   }
 

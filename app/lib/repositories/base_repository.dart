@@ -14,17 +14,16 @@ class BaseRepository {
 
   static late final ObjectBox _objectBox;
 
-  MessageRepository? _message;
-
-  //TODO load without sockets
-
-  MessageRepository get message => _message ??= MessageRepository(
-        _createBox<Message>(),
-      );
-
   static Future<void> initialize() async {
     _objectBox = await ObjectBox.create();
   }
 
   Box<T> _createBox<T>() => _objectBox.store.box<T>();
+
+  /// === Individual repos ===
+  MessageRepository? _message;
+
+  MessageRepository get message => _message ??= MessageRepository(
+        _createBox<Message>(),
+      );
 }

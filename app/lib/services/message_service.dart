@@ -1,14 +1,10 @@
-import 'dart:convert';
 
 import 'package:app/api/api.dart';
 import 'package:app/entities/contract/message_contract_response.dart';
 import 'package:app/repositories/message_repository.dart';
 import 'package:app/services/base_service.dart';
 import 'package:app/services/system_service.dart';
-import 'package:app/utils/consts.dart';
 import 'package:control_core/core.dart';
-import 'package:uuid/uuid.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../entities/message.dart';
 import '../repositories/base_repository.dart';
@@ -47,12 +43,17 @@ class MessageService extends BaseControl {
         ...messages.value!,
       ],
     );
-    messages.sort((a,b) => b.createdAt.compareTo(a.createdAt));
+    messages.sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 
   @override
   Future<void> reload() {
-    _api.reload();
+    if (_api.initialized) {
+      _api.reload();
+    } else {
+      _api.initialize();
+      reload();
+    }
     return super.reload();
   }
 

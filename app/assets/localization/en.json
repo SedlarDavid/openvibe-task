@@ -1,7 +1,9 @@
 {
-  "no_messages": "No messages",
   "clear_storage": "Clear storage",
-  "storage_cleared": "Storage cleared",
+  "message_content": "Message content",
+  "message_details": "Message details",
+  "messages": "Messages",
   "messages_count": "messages",
-  "messages": "Messages"
+  "no_messages": "No messages",
+  "storage_cleared": "Storage cleared"
 }
